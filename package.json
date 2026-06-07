@@ -1,0 +1,35 @@
+{
+  "name": "price-stalker",
+  "version": "1.0.0",
+  "description": "stalks vendors to notify about price drop",
+  "keywords": [
+    "price",
+    "nodejs",
+    "redis",
+    "queueing"
+  ],
+  "homepage": "https://github.com/Aj-vrod/price-stalker#readme",
+  "bugs": {
+    "url": "https://github.com/Aj-vrod/price-stalker/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aj-vrod/price-stalker.git"
+  },
+  "license": "ISC",
+  "author": "Aj-vrod",
+  "type": "module",
+  "scripts": {
+    "produce": "tsx src/producer.ts",
+    "worker:a": "tsx src/worker.ts worker-a",
+    "worker:b": "tsx src/worker.ts worker-b"
+  },
+  "dependencies": {
+    "redis": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.2",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  }
+}
