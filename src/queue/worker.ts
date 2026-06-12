@@ -56,7 +56,7 @@ async function handleEntry(
     }
 }
 
-// Calls xReadGroup() to fetch new unread tasks 
+// Calls xReadGroup() to fetch new unread tasks
 async function readNew(client: ReturnType<typeof redisClient>) {
     // Fetches new unread tasks
     const response = await client.xReadGroup(
@@ -106,20 +106,20 @@ async function claimPending(client: ReturnType<typeof redisClient>) {
     }
 }
 
-async function main() {
-    const client = redisClient()
-    await client.connect()
-    await ensureGroup(client)
+export async function runWorker() {
+    try {
+        const client = redisClient()
+        await client.connect()
+        await ensureGroup(client)
 
-    console.log(`Worker started: ${consumerName}`);
+        console.log(`Worker started: ${consumerName}`);
 
-    while(true) {
-        await readNew(client)
-        await claimPending(client)
+        while(true) {
+            await readNew(client)
+            await claimPending(client)
+        }
+    } catch (error) {
+        console.error(error);
+        process.exit(1);
     }
 }
-
-main().catch((err) => {
-    console.error(err);
-    process.exit(1);
-});
